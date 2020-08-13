@@ -11,6 +11,18 @@ function updateUI(){
     } else {
         boardHolder.classList.remove("is-invisible");
         gameName.innerHTML = game.getName();
+
+        for (let columnIndex = 0; columnIndex <= 6; columnIndex++){
+            const isFullColumn = game.isColumnFull(columnIndex);
+            const columnId = `column-${columnIndex}`;
+            const columnNum = document.getElementById(columnId);
+
+            if (isFullColumn) {
+                columnNum.classList.add("full")
+            } else {
+                columnNum.classList.remove("full");
+            }
+        }
         for (let rowIndex = 0; rowIndex <= 5; rowIndex++) {
             for (let columnIndex = 0; columnIndex <= 6; columnIndex++) {
                 const square = document.querySelector(`#square-${rowIndex}-${columnIndex}`)
