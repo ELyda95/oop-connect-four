@@ -1,6 +1,7 @@
 import { Game } from './game.js';
 
 let game = undefined;
+const clickers = document.getElementById("click-targets");
 
 function updateUI(){
     const boardHolder = document.getElementById("board-holder");
@@ -10,6 +11,14 @@ function updateUI(){
     } else {
         boardHolder.classList.remove("is-invisible");
         gameName.innerHTML = game.getName();
+        const currentPlayer = game.currentPlayer;
+        if (currentPlayer === 1) {
+            clickers.classList.add("black");
+            clickers.classList.remove("red");
+        } else {
+            clickers.classList.remove("black");
+            clickers.classList.add("red");
+        }
     }
 
 }
@@ -42,5 +51,10 @@ window.addEventListener("DOMContentLoaded", () => {
         enableBtn();
         updateUI();
     });
+
+    clickers.addEventListener("click", event => {
+        game.playInColumn();
+        updateUI();
+    })
 
 });
