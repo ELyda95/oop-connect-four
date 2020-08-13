@@ -11,6 +11,24 @@ function updateUI(){
     } else {
         boardHolder.classList.remove("is-invisible");
         gameName.innerHTML = game.getName();
+        for (let rowIndex = 0; rowIndex <= 5; rowIndex++) {
+            for (let columnIndex = 0; columnIndex <= 6; columnIndex++) {
+                const square = document.querySelector(`#square-${rowIndex}-${columnIndex}`)
+                square.innerHTML = "";
+                const playerSpace = game.getTokenAt(rowIndex, columnIndex);
+                if (playerSpace === 1) {
+                    const token = document.createElement("div");
+                    token.classList.add("black");
+                    token.classList.add("token")
+                    square.appendChild(token);
+                } else if (playerSpace === 2) {
+                    const token = document.createElement("div");
+                    token.classList.add("red");
+                    token.classList.add("token")
+                    square.appendChild(token);
+                }
+            }
+        }
         const currentPlayer = game.currentPlayer;
         if (currentPlayer === 1) {
             clickers.classList.add("black");
@@ -35,7 +53,7 @@ window.addEventListener("DOMContentLoaded", () => {
         if (playerOneContent.length !== 0 && playerTwoContent.length !== 0){
             newGameBtn.disabled = false;
         }
-     }
+    }
     playerOneInput.addEventListener("keyup", () => {
         enableBtn();
      });
@@ -53,7 +71,11 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     clickers.addEventListener("click", event => {
-        game.playInColumn();
+        const targetId = event.target.id;
+        if (!targetId.startsWith("column-")) return;
+        const columnIndex = Number.parseInt(targetId[targetId.length -1])
+        game.playInColumn(columnIndex);
+
         updateUI();
     })
 
