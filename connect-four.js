@@ -19,8 +19,10 @@ function updateUI(){
 
             if (isFullColumn) {
                 columnNum.classList.add("full")
+                clickers.setAttribute("disabled", true);
             } else {
                 columnNum.classList.remove("full");
+                clickers.setAttribute("disabled", false);
             }
         }
         for (let rowIndex = 0; rowIndex <= 5; rowIndex++) {
