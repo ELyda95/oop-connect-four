@@ -33,7 +33,7 @@ export class Game {
 
             if (winnerNumber === 1 || winnerNumber === 2) {
                 this.winnerNumber = winnerNumber;
-            } break;
+            }
         }
 
     }
