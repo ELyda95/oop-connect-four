@@ -13,12 +13,24 @@ export class Game {
             new Column(),
             new Column()
         ]
+        this.winnerNumber = 0;
     }
+
+    checkForTie() {
+        if (this.columns.every(e => e.isFull())) {
+            this.winnerNumber = 3;
+        }
+    }
+
     getName() {
+        if (this.winnerNumber === 3) {
+            return `${this.playerOneName} ties with ${this.playerTwoName}`;
+        }
         return `${this.playerOneName} vs. ${this.playerTwoName}`;
     }
     playInColumn(columnIndex) {
         this.columns[columnIndex].add(this.currentPlayer);
+        this.checkForTie();
         if (this.currentPlayer === 1) {
             this.currentPlayer = 2;
         } else {
